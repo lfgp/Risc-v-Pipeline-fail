@@ -3,26 +3,34 @@
 module BranchUnit #(
     parameter PC_W = 9
 ) (
-    input logic [PC_W-1:0] Cur_PC,
-    input logic [31:0] Imm,
-    input logic Branch,
-    input logic [31:0] AluResult,
-    output logic [31:0] PC_Imm,
-    output logic [31:0] PC_Four,
-    output logic [31:0] BrPC,
-    output logic PcSel
+    input logic [PC_W-1:0] Cur_PC,       // Contador de Programa atual
+    input logic [31:0] Imm,              // Imediato calculado pela im_Gen
+    input logic [31:0] AluResult,        // Resultado da ALU
+    input logic Branch,                  // Sinal de ramificação
+    input logic [2:0] BranchType,        // Tipo de ramificação (0: BNE, 1: BGE, 2: BLT)
+    output logic [31:0] PC_Imm,          // Endereço do PC para a ramificação
+    output logic [31:0] PC_Four,         // PC+4
+    output logic [31:0] BrPC,            // Endereço de destino da ramificação
+    output logic PcSel                    // Seleção do PC (0: PC+4, 1: PC+Imm)
 );
 
   logic Branch_Sel;
-  logic [31:0] PC_Full;
 
-  assign PC_Full = {23'b0, Cur_PC};
+  assign PC_Four = {23'b0, Cur_PC} + 32'b100;
+  assign PC_Imm = {23'b0, Cur_PC} + Imm;
 
-  assign PC_Imm = PC_Full + Imm;
-  assign PC_Four = PC_Full + 32'b100;
-  assign Branch_Sel = Branch && AluResult[0];  // 0:Branch is taken; 1:Branch is not taken
+  // Seleção do Branch
+  always_comb begin
+    case (BranchType)
+      3'b000: Branch_Sel = Branch && (AluResult != 0); // BNE
+      3'b001: Branch_Sel = Branch && (AluResult >= 0); // BGE
+      3'b010: Branch_Sel = Branch && (AluResult < 0);  // BLT
+      default: Branch_Sel = 0;
+    endcase
+  end
 
-  assign BrPC = (Branch_Sel) ? PC_Imm : 32'b0;  // Branch -> PC+Imm   // Otherwise, BrPC value is not important
-  assign PcSel = Branch_Sel;  // 1:branch is taken; 0:branch is not taken(choose pc+4)
+  assign BrPC = (Branch_Sel) ? PC_Imm : 32'b0;
+  assign PcSel = Branch_Sel;  // 1: branch is taken; 0: branch is not taken
 
 endmodule
+
