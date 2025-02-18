@@ -33,15 +33,15 @@ module Controller (
   assign  LUI    = 7'b0110111; 
   assign  AUIPC  = 7'b0010111;
 
-  assign ALUSrc = (Opcode == LW || Opcode == SW);
+  assign ALUSrc = (Opcode == LW || Opcode == SW || Opcode == RTypeI || Opcode == JALR);
   assign MemtoReg = (Opcode == LW);
-  assign RegWrite = (Opcode == R_TYPE || Opcode == LW || Opcode == RTypeI || Opcode==JAL || Opcode==JALR || Opcode==LUI || Opcode==AUIPC);
+  assign RegWrite = (Opcode == R_TYPE || Opcode == LW || Opcode == RTypeI || Opcode == JAL || Opcode == JALR || Opcode == LUI || Opcode == AUIPC);
   assign MemRead = (Opcode == LW);
   assign MemWrite = (Opcode == SW);
-  assign ALUOp[0] = (Opcode == BR || Opcode==JAL || Opcode==LUI);
-  assign ALUOp[1] = (Opcode == R_TYPE || Opcode==JAL || Opcode==LUI || Opcode==RTypeI);
-  assign Branch = (Opcode == BR || Opcode==JAL);
-  assign JalrSel  = (Opcode==JALR);
-  assign RWSel[0] = (Opcode==JALR || Opcode==JAL || Opcode==AUIPC);
-  assign RWSel[1] = (Opcode==LUI || Opcode==AUIPC);
+  assign ALUOp[0] = (Opcode == BR || Opcode == JAL || Opcode == LUI);
+  assign ALUOp[1] = (Opcode == R_TYPE || Opcode == JAL || Opcode == LUI || Opcode == RTypeI);
+  assign Branch = (Opcode == BR || Opcode == JAL);
+  assign JalrSel  = (Opcode == JALR);
+  assign RWSel[0] = (Opcode == JALR || Opcode == JAL || Opcode == AUIPC);
+  assign RWSel[1] = (Opcode == LUI || Opcode == AUIPC);
 endmodule
