@@ -18,6 +18,7 @@ module Datapath #(
     MemWrite,  // Register file or Immediate MUX // Memroy Writing Enable
     MemRead,  // Memroy Reading Enable
     Branch,  // Branch Enable
+    Halt,
     JalrSel ,                 // Jalr Mux Select
     input  logic [          1:0] ALUOp,
     input logic  [          1:0] RWSel , // Mux4to1 Select
@@ -143,6 +144,7 @@ module Datapath #(
       B.MemWrite <= 0;
       B.ALUOp <= 0;
       B.Branch <= 0;
+      B.Halt <= 0;
       B.JalrSel <= 0;
       B.RWSel <= 0;
       B.Curr_Pc <= 0;
@@ -163,6 +165,7 @@ module Datapath #(
       B.MemWrite <= MemWrite;
       B.ALUOp <= ALUOp;
       B.Branch <= Branch;
+      B.Halt <= Halt;
       B.JalrSel <= JalrSel;
       B.RWSel <= RWSel;
       B.Curr_Pc <= A.Curr_Pc;
@@ -227,6 +230,7 @@ module Datapath #(
       B.Curr_Pc,
       B.ImmG,
       B.Branch,
+      B.Halt,
       ALUResult,
       BrImm,
       Old_PC_Four,
