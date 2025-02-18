@@ -30,7 +30,6 @@ module Controller (
   assign BR = 7'b1100011;  //beq
   assign  JAL    = 7'b1101111;
   assign  JALR   = 7'b1100111;
-
   assign  LUI    = 7'b0110111; 
   assign  AUIPC  = 7'b0010111;
 
