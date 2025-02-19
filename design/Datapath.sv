@@ -118,13 +118,13 @@ module Datapath #(
       D.rd,
       A.Curr_Instr[19:15],
       A.Curr_Instr[24:20],
-      WrmuxSrc,
+      WRMuxRes,
       Reg1,
       Reg2
   );
 
   assign reg_num = D.rd;
-  assign reg_data = WrmuxSrc;
+  assign reg_data = WRMuxRes;
   assign reg_write_sig = D.RegWrite;
 
   // //sign extend
@@ -200,7 +200,7 @@ module Datapath #(
 
   mux4 #(32) FAmux (
       B.RD_One,
-      WrmuxSrc,
+      WRMuxRes,
       C.Alu_Result,
       B.RD_One,
       FAmuxSel,
@@ -208,7 +208,7 @@ module Datapath #(
   );
   mux4 #(32) FBmux (
       B.RD_Two,
-      WrmuxSrc,
+      WRMuxRes,
       C.Alu_Result,
       B.RD_Two,
       FBmuxSel,
@@ -229,6 +229,7 @@ module Datapath #(
   BranchUnit #(9) brunit (
       B.Curr_Pc,
       B.ImmG,
+      B.JalrSel,
       B.Branch,
       B.Halt,
       ALUResult,
@@ -329,9 +330,9 @@ module Datapath #(
       D.Pc_Four,
       D.Imm_Out, 
       D.Pc_Imm,
-      D.RWSel, 
-      WRMuxResult
+      D.RWSel,
+      WRMuxRes
   );
-  assign WB_Data = WrmuxSrc;
+  assign WB_Data = WRMuxRes;
 
 endmodule
