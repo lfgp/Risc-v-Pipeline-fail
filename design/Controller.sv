@@ -6,6 +6,7 @@ module Controller (
     //7-bit opcode field from the instruction
 
     //Outputs
+    output logic Halt,
     output logic ALUSrc,
     //0: The second ALU operand comes from the second register file output (Read data 2); 
     //1: The second ALU operand is the sign-extended, lower 16 bits of the instruction.
@@ -32,6 +33,7 @@ module Controller (
   assign  JALR   = 7'b1100111;
   assign  LUI    = 7'b0110111; 
   assign  AUIPC  = 7'b0010111;
+  assign HALT=  7'b1111111; // halt
 
   assign ALUSrc = (Opcode == LW || Opcode == SW || Opcode == RTypeI || Opcode == JALR);
   assign MemtoReg = (Opcode == LW);
@@ -44,4 +46,5 @@ module Controller (
   assign JalrSel  = (Opcode == JALR);
   assign RWSel[0] = (Opcode == JALR || Opcode == JAL || Opcode == AUIPC);
   assign RWSel[1] = (Opcode == LUI || Opcode == AUIPC);
+  assign Halt =    (Opcode == HALT);
 endmodule
