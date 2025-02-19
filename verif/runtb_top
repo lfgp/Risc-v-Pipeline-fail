@@ -16,12 +16,15 @@ add wave -position end sim:/tb_top/riscV/dp/Instr
 add wave -position end sim:/tb_top/riscV/WB_Data
 add wave -position end sim:/tb_top/riscV/dp/rf/register_file
 add wave -position end sim:/tb_top/riscV/opcode
+add wave -position end sim:/tb_top/riscV/Halt
 add wave -position end sim:/tb_top/riscV/ALUSrc
 add wave -position end sim:/tb_top/riscV/MemtoReg
 add wave -position end sim:/tb_top/riscV/RegWrite
 add wave -position end sim:/tb_top/riscV/MemRead
 add wave -position end sim:/tb_top/riscV/MemWrite
 add wave -position end sim:/tb_top/riscV/Branch
+add wave -position end sim:/tb_top/riscV/JalrSel
+add wave -position end sim:/tb_top/riscV/RWSel
 add wave -position end sim:/tb_top/riscV/ALUop
 add wave -position end sim:/tb_top/riscV/ALUop_Reg
 add wave -position end sim:/tb_top/riscV/Funct7
