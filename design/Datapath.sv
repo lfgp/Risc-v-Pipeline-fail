@@ -47,7 +47,7 @@ module Datapath #(
   logic [DATA_W-1:0] ReadData;
   logic [DATA_W-1:0] SrcB, ALUResult;
   logic [DATA_W-1:0] ExtImm, BrImm, Old_PC_Four, BrPC;
-  logic [DATA_W-1:0] WRMuxResult,WrmuxSrc;
+  logic [DATA_W-1:0] WRMuxRes,WrmuxSrc;
   logic PcSel;  // mux select / flush signal
   logic [       1:0] FAmuxSel;
   logic [       1:0] FBmuxSel;
