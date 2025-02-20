@@ -7,7 +7,7 @@ module BranchUnit #(
      input logic [31:0] Imm,
      input logic JalrSel,
      input logic Branch,
-     input Halt,
+     input logic Halt,
      input logic [31:0] AluResult,
      output logic [31:0] PC_Imm,
      output logic [31:0] PC_Four,
